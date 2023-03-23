@@ -31,7 +31,21 @@ Output: [1,3,6,10]
 
 class Solution:
     def runningSum(self, nums: List[int]) -> List[int]:
-        list_sums = [nums[0]]        
-        for element in range(1, len(nums)):
-            list_sums.append(nums[element] + list_sums[ element - 1])
-        return list_sums
+        def runningSum1(nums: List[int]) -> List[int]:
+            list_sums = [nums[0]]        
+            for element in range(1, len(nums)):
+                list_sums.append(nums[element] + list_sums[ element - 1])
+            return list_sums
+
+        def runningSum2(nums: List[int]) -> List[int]:
+            # create a shallow copy
+            sums = nums[:]
+            
+            # use while instead of for loop with range
+            index = 1 
+            while index < len(nums):
+                sums[index] += sums[ index - 1]
+                index += 1
+            return sums
+
+        return runningSum2(nums)
